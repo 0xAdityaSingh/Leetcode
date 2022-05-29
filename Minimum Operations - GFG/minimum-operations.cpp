@@ -5,18 +5,18 @@ using namespace std;
  // } Driver Code Ends
 class Solution
 {
+    int  solve(int n)
+   {
+       if(n==1)
+       return 1;
+       if(n%2==0)
+       return 1+solve(n/2);
+       return 2+solve(n/2);
+   }
   public:
     int minOperation(int n)
     {
-        int count = 0;
-        while(n!=0){
-                if(n%2==0)
-                    n/=2;
-                else
-                    n--;
-                count++;     
-            }
-        return count;
+        return solve(n);
     }
 };
 
