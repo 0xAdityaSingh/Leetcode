@@ -8,16 +8,14 @@ public:
                 if(i==0 && j==0 && !mat[i][j]){
                     dp[i][j]=1;
                 }
-                else{
-                    if(!mat[i][j] && i>0 && j>0){
-                        dp[i][j]=dp[i-1][j]+dp[i][j-1];
-                    }
-                    else if(!mat[i][j] && j>0){
-                        dp[i][j]=dp[i][j-1];
-                    }
-                    else if(!mat[i][j] && i>0){
-                        dp[i][j]=dp[i-1][j];
-                    }
+                else if(!mat[i][j] && i>0 && j>0){
+                    dp[i][j]=dp[i-1][j]+dp[i][j-1];
+                }
+                else if(!mat[i][j] && j>0){
+                    dp[i][j]=dp[i][j-1];
+                }
+                else if(!mat[i][j] && i>0){
+                    dp[i][j]=dp[i-1][j];
                 }
             }
         }
