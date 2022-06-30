@@ -9,14 +9,19 @@ class Solution{
     //Function to find if there exists a triplet in the 
     //array A[] which sums up to X.
     bool find3Numbers(int A[], int n, int X){
+    sort(A,A+n);
      unordered_map<int,int> m;
+     for(int i=0;i<n;i++){
+         m[A[i]]++;
+     }
        for(int i=0;i<n;i++){
            for(int j=i+1;j<n;j++){
                if(m[X-A[i]-A[j]]!=0){
-                   return true;
+                   if(X-A[i]-A[j]==A[i] and m[X-A[i]-A[j]]>1) return true;
+                   else if(X-A[i]-A[j]==A[j] and m[X-A[i]-A[j]]>1) return true;
+                   else if(X-A[i]-A[j]!=A[i] and X-A[i]-A[j]!=A[j] and m[X-A[i]-A[j]]>0) return true;
                }
            }
-           m[A[i]]++;
        }
        
        return false;
