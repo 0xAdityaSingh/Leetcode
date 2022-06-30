@@ -9,7 +9,6 @@ class Solution{
     //Function to find if there exists a triplet in the 
     //array A[] which sums up to X.
     bool find3Numbers(int A[], int n, int X){
-    sort(A,A+n);
      unordered_map<int,int> m;
      for(int i=0;i<n;i++){
          m[A[i]]++;
