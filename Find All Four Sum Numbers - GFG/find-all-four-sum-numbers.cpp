@@ -10,38 +10,36 @@ class Solution{
     public:
     // arr[] : int input array of integers
     // k : the quadruple sum required
-    vector<vector<int> > fourSum(vector<int> &a, int k) {
-    if (a.size() < 4) return {};
-    vector<vector<int>> ans;
-    sort(a.begin(), a.end());
-    for (int i = 0; i < a.size() - 3; ++i) {
-        if (a[i] > 0 && a[i] > k) break;
-        if (i > 0 && a[i] == a[i - 1]) continue;
-        for (int j = i + 1; j < a.size() - 2; ++j) {
-            if (j > i + 1 && a[j] == a[j - 1]) continue;
-            int left = j + 1;
-            int right = a.size() - 1;
-            while (left < right) {
-                int old_l = left;
-                int old_r = right;
-                // calculate current sum
-                int sum = a[i] + a[j] + a[left] + a[right];
-                if (sum == k) {
-                    // add to answer
-                    ans.push_back({a[i], a[j], a[left], a[right]});
-
-                    // removing duplicates
-                    while (left < right && a[left] == a[old_l]) left++;
-                    while (left < right && a[right] == a[old_r]) right--;
-                } else if (sum > k) {
-                    right--;
-                } else {
-                    left++;
+    vector<vector<int> > fourSum(vector<int> &arr, int k) {
+        if (arr.size() < 4) return {};
+        vector<vector<int>>ans;
+        int n=arr.size();
+        sort(arr.begin(),arr.end());
+        for(int i=0;i<n-3;i++){
+            if (i > 0 && arr[i] == arr[i - 1]) continue;
+            for(int j=i+1;j<n-2;j++){
+                 if (j > i + 1 && arr[j] == arr[j - 1]) continue;
+                int s=j+1,e=n-1,diff=k-arr[i]-arr[j];
+                while(s<e){
+                    int l=s,r=e;
+                    
+                    if(arr[s]+arr[e]==diff){
+                        ans.push_back({arr[i],arr[j],arr[s],arr[e]});
+                        while (s < e && arr[s] == arr[l]) s++;
+                        while (s < e && arr[e] == arr[r]) e--;
+                    }
+                    else if(arr[s]+arr[e]<diff){
+                        s++;
+                    }
+                    else if(arr[s]+arr[e]>diff){
+                        e--;
+                    }
                 }
             }
         }
-    }
-    return ans;
+        // set<vector<int>> s(ans.begin(), ans.end());
+        // vector<vector<int>> fans(s.begin(), s.end());
+        return ans;
     }
 };
 
