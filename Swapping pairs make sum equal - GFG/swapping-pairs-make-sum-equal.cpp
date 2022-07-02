@@ -5,7 +5,7 @@ using namespace std;
  // } Driver Code Ends
 class Solution{
 
-private:
+	public:
 	int getSum(int X[], int n)
 	{
 	    int sum = 0;
@@ -15,8 +15,7 @@ private:
 	}
 	 
 
-	int getTarget(int A[], int n, int B[], int m)
-	{
+	int getTarget(int A[], int n, int B[], int m){
 
 	    int sum1 = getSum(A, n);
 	    int sum2 = getSum(B, m);
@@ -26,37 +25,29 @@ private:
 	        return INT_MIN;
 	    return ((sum1 - sum2) / 2);
 	}
-
-	public:
+	bool binary_search(int v[],int s,int e,int val){
+	    if(s>e) return false;
+	    int mid=(s+e)/2;
+	    if(v[mid]==val) return true;
+	    else if(v[mid]>val){
+	        return binary_search(v,s,mid-1,val);
+	    }
+	    else if(v[mid]<val){
+	        return binary_search(v,mid+1,e,val);
+	    }
+	}
 	int findSwapValues(int A[], int n, int B[], int m)
 	{
-
-	    sort(A, A + n);
-	    sort(B, B + m);
-	 
-
-	    int target = getTarget(A, n, B, m);
-	 
-	    if (target == INT_MIN)
-	        return -1;
-	 
-	    int i = 0, j = 0;
-	    while (i < n && j < m) 
-	    {
-	        int diff = A[i] - B[j];
-	        if (diff == target) 
-	        {
-	            return 1;
-	        }
-
-	        else if (diff < target)
-	            i++;
-
-	        else
-	            j++;
-	    }
-	    
-	    return -1;
+        int sum1=0,sum2=0;
+        sort(A,A+n);
+        sort(B,B+m);
+        int diff=getTarget(A,n,B,m);
+        if(diff==INT_MIN) return -1;
+        for(int i=0;i<m;i++){
+            int temp=diff+B[i];
+            if(binary_search(A,0,n-1,temp)) return 1;
+        }
+        return -1;
 	}
  
 
