@@ -1,13 +1,26 @@
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
-        unordered_map<int,int> mp;
-        for(auto it:nums){
-            if(mp.find(it)!=mp.end())return it;
-            else{
-                mp[it]++;
+        int low = 1, high = nums.size() - 1, cnt;
+        
+        while(low <=  high)
+        {
+            int mid = low + (high - low) / 2;
+            cnt = 0;
+            // cnt number less than equal to mid
+            for(int n : nums)
+            {
+                if(n <= mid)
+                    ++cnt;
             }
+            // binary search on left
+            if(cnt <= mid)
+                low = mid + 1;
+            else
+            // binary search on right
+                high = mid - 1;
+            
         }
-        return -1;
+        return low;
     }
 };
