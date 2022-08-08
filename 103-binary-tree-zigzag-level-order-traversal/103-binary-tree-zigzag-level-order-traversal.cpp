@@ -11,42 +11,39 @@
  */
 class Solution {
 public:
-    
-    void func(TreeNode* root, vector<vector<int>> &ans){
-        if(!root) return;
-        int evenorodd=0;
-        queue<TreeNode*> q;
-        q.push(root);
-        vector<int> temp;
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {        
+        vector<vector<int>>outputArr;
+        if(!root)return outputArr;
+        vector<int>tempArr;
         queue<TreeNode*> q1;
-        while(!q.empty()){
-            TreeNode* node=q.front();
-            q.pop();
-            temp.push_back(node->val);
+        queue<TreeNode*> q2;
+        q1.push(root);
+        int checkNum=0;
+        while(!q1.empty()){
+            TreeNode* node=q1.front();
+            q1.pop();
+            tempArr.push_back(node->val);
             if(node!=NULL and (node->left!=nullptr || node->right!=nullptr)){
                 if(node->left!=nullptr){
-                    q1.push(node->left);
+                    q2.push(node->left);
                 }
                 if(node->right!=nullptr){
-                    q1.push(node->right);
+                    q2.push(node->right);
                 }
             }
-            if(q.empty()){
-                swap(q,q1);
-                evenorodd++;
-                if(evenorodd%2==0){
-                    reverse(temp.begin(),temp.end());
+            if(q1.empty()){
+                if(checkNum%2==0){
+                    outputArr.push_back(tempArr);
                 }
-                ans.push_back(temp);
-                temp.clear();
+                else{
+                    reverse(tempArr.begin(),tempArr.end());
+                    outputArr.push_back(tempArr);
+                }
+                tempArr.clear();
+                swap(q1,q2);
+                checkNum++;
             }
         }
-        return;
-    }
-    
-    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
-        vector<vector<int>> ans;
-        func(root,ans);
-        return ans;
+        return outputArr;
     }
 };
